@@ -1,0 +1,17 @@
+name: test
+on:
+  push:
+    branches:
+      - main
+jobs:
+  runson: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v2
+      name: checkout
+
+    - name: Login to ACR
+      uses: docker/login-action@v3
+      with:
+        registry: <registry-name>.azurecr.io
+        username: ${{ vars.AZURE_CLIENT_ID }}
+        password: ${{ secrets.AZURE_CLIENT_SECRET }}
