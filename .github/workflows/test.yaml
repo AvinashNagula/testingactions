@@ -14,7 +14,7 @@ jobs:
   docker:
     # This job uses the reusable workflow defined in the other file.
     # The path must be relative to the root of the repository.
-    uses: ./.github/docker/action.yml@feature/test-doc
+    uses: ./.github/workflows/action.yml
     
     # Provide the required inputs for the reusable workflow.
     with:
