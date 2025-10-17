@@ -12,7 +12,7 @@ jobs:
   call-workflow::
     # This job uses the reusable workflow defined in the other file.
     # The path must be relative to the root of the repository.
-    uses: .github/workflows/reusable-docker-build-push.yml
+    uses: ./github/docker/reusable-docker-build-push.yml
     
     # Provide the required inputs for the reusable workflow.
     with:
