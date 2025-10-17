@@ -14,7 +14,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          dockerfile: Dockerfile
+          dockerfile: src/Dockerfile
           push: false
           tags: user/app:latest
 
