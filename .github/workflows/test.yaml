@@ -1,6 +1,6 @@
 # This workflow is triggered on a push event to any branch.
 # This includes pushes that create new branches.
-# It calls the reusable workflow to build and push the Docker image.
+# It calls the reusable workflow to build and push the Docker image..
 
 name: CI
 
