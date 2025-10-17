@@ -6,31 +6,31 @@ name: Reusable Docker Build & Push
 # on:
 #   push:
   # This makes the workflow reusable. It can be called from other workflows.
-  # workflow_call:
+  workflow_call:
     # Inputs that the calling workflow can pass to this reusable workflow.
-inputs:
-  registry_hostname:
-    description: 'The hostname of the container registry (e.g., myregistry.azurecr.io)'
-    required: true
-    type: string
-  image_name:
-    description: 'The name of the docker image'
-    required: true
-    type: string
-  build_context:
-    description: 'The path to the build context for Docker'
-    required: false
-    type: string
-    default: '.'
-  dockerfile_path:
-    description: 'The path to the Dockerfile'
-    required: false
-    type: string
-    default: 'Dockerfile'
-  registry_username:
-    description: 'The username for the container registry'
-    required: true
-    type: string
+    inputs:
+      registry_hostname:
+        description: 'The hostname of the container registry (e.g., myregistry.azurecr.io)'
+        required: true
+        type: string
+      image_name:
+        description: 'The name of the docker image'
+        required: true
+        type: string
+      build_context:
+        description: 'The path to the build context for Docker'
+        required: false
+        type: string
+        default: '.'
+      dockerfile_path:
+        description: 'The path to the Dockerfile'
+        required: false
+        type: string
+        default: 'Dockerfile'
+      registry_username:
+        description: 'The username for the container registry'
+        required: true
+        type: string
 
 # Secrets that the calling workflow must provide.
 secrets:
