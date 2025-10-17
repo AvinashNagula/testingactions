@@ -5,10 +5,9 @@
 name: CI
 
 on:
-  workflow_dispatch:
+  # workflow_dispatch:
   push:
-    branches:
-      - feature/test-doc
+
     #  branches: [ $default-branch ]
 
 jobs:
