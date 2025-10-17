@@ -32,11 +32,11 @@ name: Reusable Docker Build & Push
         required: true
         type: string
 
-# Secrets that the calling workflow must provide.
-secrets:
-  registry_password:
-    description: 'The password or secret for the container registry'
-    required: true
+      # Secrets that the calling workflow must provide.
+      secrets:
+        registry_password:
+          description: 'The password or secret for the container registry'
+          required: true
 
 jobs:
   build-and-push-docker-image:
