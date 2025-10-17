@@ -9,7 +9,7 @@ on:
      branches: [ $default-branch ]
 
 jobs:
-  call-workflow::
+  docker:
     # This job uses the reusable workflow defined in the other file.
     # The path must be relative to the root of the repository.
     uses: ./github/workflows/reusable-docker-build-push.yml
