@@ -13,7 +13,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          context: .
+          context: ./src
           dockerfile: src/Dockerfile
           push: false
           tags: user/app:latest
