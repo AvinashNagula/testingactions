@@ -6,10 +6,10 @@ name: CI
 
 on:
   push:
-    branches: [ $default-branch ]
+    # branches: [ $default-branch ]
 
 jobs:
-  call-reusable-docker-workflow:
+  call-workflow::
     # This job uses the reusable workflow defined in the other file.
     # The path must be relative to the root of the repository.
     uses: .github/docker/reusable-docker-build-push.yml@feature/test-doc
