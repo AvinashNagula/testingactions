@@ -1,0 +1,60 @@
+# This is a reusable workflow for building and pushing a Docker image to a container registry.
+# It can be called by other workflows in your repository.
+
+name: Reusable Docker Build & Push
+
+on:
+  # This makes the workflow reusable. It can be called from other workflows.
+  workflow_call:
+    # Inputs that the calling workflow can pass to this reusable workflow.
+    inputs:
+      registry_hostname:
+        description: 'The hostname of the container registry (e.g., myregistry.azurecr.io)'
+        required: true
+        type: string
+      image_name:
+        description: 'The name of the docker image'
+        required: true
+        type: string
+      build_context:
+        description: 'The path to the build context for Docker'
+        required: false
+        type: string
+        default: '.'
+      dockerfile_path:
+        description: 'The path to the Dockerfile'
+        required: false
+        type: string
+        default: 'Dockerfile'
+      registry_username:
+        description: 'The username for the container registry'
+        required: true
+        type: string
+
+    # Secrets that the calling workflow must provide.
+    secrets:
+      registry_password:
+        description: 'The password or secret for the container registry'
+        required: true
+
+jobs:
+  build-and-push-docker-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Login to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ inputs.registry_hostname }}
+          username: ${{ inputs.registry_username }}
+          password: ${{ secrets.registry_password }}
+
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          context: ${{ inputs.build_context }}
+          file: ${{ inputs.dockerfile_path }}
+          tags: ${{ inputs.registry_hostname }}/${{ inputs.image_name }}:${{ github.run_id }}

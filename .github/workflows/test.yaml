@@ -1,26 +1,28 @@
-name: test
+# This workflow is triggered on a push event to any branch.
+# This includes pushes that create new branches.
+# It calls the reusable workflow to build and push the Docker image.
+
+name: CI
+
 on:
   push:
-    branches:
-      - main
-jobs:
-  docker:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        name: checkout
-      
-      - name: Build and push
-        uses: docker/build-push-action@v6
-        with:
-          context: ./src
-          dockerfile: src/Dockerfile
-          push: false
-          tags: user/app:latest
 
-      - name: Login to ACR
-        uses: docker/login-action@v3
-        with:
-          registry: <registry-name>.azurecr.io
-          username: ${{ vars.AZURE_CLIENT_ID }}
-          password: ${{ secrets.AZURE_CLIENT_SECRET }}
+jobs:
+  call-reusable-docker-workflow:
+    # This job uses the reusable workflow defined in the other file.
+    # The path must be relative to the root of the repository.
+    uses: ./.github/actions/docker
+    
+    # Provide the required inputs for the reusable workflow.
+    with:
+      registry_hostname: registrytbd.azurecr.io
+      image_name: posapi
+      build_context: ./src
+      dockerfile_path: Dockerfile
+      registry_username: ${{ vars.ACR_USER }}
+      
+    # Pass the required secrets to the reusable workflow.
+    # The key 'registry_password' must match the secret name in the 'workflow_call' trigger.
+    secrets:
+      registry_password: ${{ secrets.ACR_SECRET }}
+
