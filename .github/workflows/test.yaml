@@ -6,7 +6,9 @@ name: CI
 
 on:
   push:
-     branches: [ $default-branch ]
+    branches:
+      - feature/test-doc
+    #  branches: [ $default-branch ]
 
 jobs:
   docker:
